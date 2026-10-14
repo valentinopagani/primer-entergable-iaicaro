@@ -1,0 +1,41 @@
+﻿sku,nombre,rubro,marca,unidad,precio_lista,alicuota_iva,stock,deposito
+AB-1020,"Disco de corte metal 115 x 1,0 mm",Abrasivos,Tyrolit,unidad,3250.0,21.0,1840,Cordoba
+AB-1035,"Disco de corte metal 180 x 1,6 mm",Abrasivos,Tyrolit,unidad,5900.0,21.0,720,Cordoba
+AB-1120,"Disco de desbaste 115 x 6,0 mm",Abrasivos,Tyrolit,unidad,6800.0,21.0,410,Cordoba
+AB-1240,Disco diamantado turbo 230 mm,Abrasivos,Bosch,unidad,41500.0,21.0,96,Cordoba
+AB-2010,Lija al agua grano 220 (pliego),Abrasivos,Norton,unidad,980.0,21.0,5200,Cordoba
+AB-2080,Rollo de tela esmeril grano 80 x 50 m,Abrasivos,Norton,rollo,128000.0,21.0,18,Rosario
+SU-3041,Morsa de banco 6 pulgadas fundicion,Sujecion,Bremen,unidad,187000.0,21.0,34,Cordoba
+SU-3090,Prensa sargento 300 mm,Sujecion,Bremen,unidad,21400.0,21.0,260,Cordoba
+SU-3150,Eslinga plana 2 toneladas x 3 m,Sujecion,Cintaplast,unidad,34800.0,21.0,142,Rosario
+SU-3200,Criquet de amarre 5 toneladas x 9 m,Sujecion,Cintaplast,unidad,47900.0,21.0,88,Rosario
+HE-4110,Amoladora angular 115 mm 900 W,Herramienta electrica,Dewalt,unidad,289000.0,21.0,52,Cordoba
+HE-4180,Amoladora angular 230 mm 2200 W,Herramienta electrica,Dewalt,unidad,612000.0,21.0,21,Cordoba
+HE-4220,Taladro percutor 13 mm 810 W,Herramienta electrica,Black+Decker,unidad,214000.0,21.0,67,Cordoba
+HE-4330,Atornillador de impacto 18 V (sin bateria),Herramienta electrica,Dewalt,unidad,398000.0,21.0,29,Cordoba
+HE-4335,Bateria 18 V 4 Ah,Herramienta electrica,Dewalt,unidad,176000.0,21.0,61,Cordoba
+HE-4410,Sierra circular 184 mm 1400 W,Herramienta electrica,Makita,unidad,536000.0,21.0,14,Rosario
+HE-4500,Soldadora inverter 200 A,Herramienta electrica,Lusqtoff,unidad,465000.0,21.0,23,Cordoba
+SE-5010,Casco de seguridad ABS con arnes,Seguridad,Libus,unidad,18900.0,21.0,940,Cordoba
+SE-5025,Antiparra policarbonato incolora,Seguridad,Libus,unidad,7400.0,21.0,1620,Cordoba
+SE-5040,Guante vaqueta reforzado talle 10 (par),Seguridad,Ombu,par,9600.0,21.0,2100,Cordoba
+SE-5055,Guante anticorte nivel 5 talle 9 (par),Seguridad,Ombu,par,14200.0,21.0,780,Cordoba
+SE-5070,Barbijo respirador N95 (caja x 20),Seguridad,3M,caja,62000.0,21.0,145,Cordoba
+SE-5090,Arnes de cuerpo entero 2 anillas,Seguridad,Libus,unidad,148000.0,21.0,37,Rosario
+SE-5110,Zapato de seguridad puntera composite talle 42,Seguridad,Ombu,par,96500.0,21.0,210,Cordoba
+ME-6010,"Calibre digital 150 mm 0,01 mm",Medicion,Mitutoyo,unidad,96000.0,21.0,44,Cordoba
+ME-6030,Cinta metrica 5 m x 25 mm,Medicion,Stanley,unidad,12800.0,21.0,1350,Cordoba
+ME-6080,Nivel laser autonivelante 2 lineas,Medicion,Bosch,unidad,327000.0,21.0,19,Cordoba
+ME-6120,Multimetro digital True RMS,Medicion,Uni-T,unidad,118000.0,21.0,56,Rosario
+FI-7010,Tornillo autoperforante 8 x 1 pulgada (caja x 1000),Fijaciones,Sidus,caja,44500.0,21.0,310,Cordoba
+FI-7025,Tarugo nylon 8 mm (bolsa x 500),Fijaciones,Sidus,bolsa,19800.0,21.0,620,Cordoba
+FI-7060,Broca cobalto 6 mm,Fijaciones,Bosch,unidad,8900.0,21.0,880,Cordoba
+FI-7075,Juego de brocas HSS 19 piezas,Fijaciones,Bosch,juego,74000.0,21.0,96,Cordoba
+FI-7120,Bulon hexagonal 1/2 x 3 pulgadas grado 8 (caja x 100),Fijaciones,Sidus,caja,86500.0,21.0,128,Rosario
+LU-8010,Aceite hidraulico ISO 68 x 20 L,Lubricantes,YPF,bidon,142000.0,21.0,74,Cordoba
+LU-8040,Desengrasante industrial x 5 L,Lubricantes,Sinteplast,bidon,38500.0,21.0,190,Cordoba
+LU-8070,Lubricante penetrante aerosol 440 cc,Lubricantes,WD-40,unidad,16700.0,21.0,1020,Cordoba
+LU-8090,Grasa litio EP2 x 1 kg,Lubricantes,YPF,pote,21300.0,21.0,430,Cordoba
+NE-9010,Compresor 50 L 2 HP monofasico,Neumatica,Gamma,unidad,585000.0,21.0,11,Cordoba
+NE-9030,Manguera neumatica 8 mm x 20 m,Neumatica,Gamma,rollo,54200.0,21.0,165,Cordoba
+NE-9055,Pistola de impacto neumatica 1/2 pulgada,Neumatica,Gamma,unidad,232000.0,21.0,26,Rosario

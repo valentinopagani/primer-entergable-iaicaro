@@ -1,0 +1,13 @@
+﻿cuit,razon_social,provincia,localidad,condicion_iva,categoria,limite_credito,saldo_actual,dias_plazo,descuento_habitual,estado,mora_dias
+30-71455982-2,Ferreteria El Tornillo Feliz S.R.L.,Cordoba,Villa Maria,Responsable Inscripto,A,4500000.0,1280000.0,30,12.0,activo,0
+30-70988341-7,Metalurgica San Jorge S.A.,Santa Fe,Rafaela,Responsable Inscripto,A,9000000.0,7450000.0,45,15.0,activo,0
+27-28455109-0,Roberto Gimenez Herramientas,Cordoba,Rio Cuarto,Monotributo,C,900000.0,310000.0,0,5.0,activo,0
+30-71622074-1,Insumos del Litoral S.R.L.,Entre Rios,Concordia,Responsable Inscripto,B,2500000.0,2410000.0,30,8.0,activo,12
+30-69874512-2,Talleres Patagonia S.A.,Neuquen,Neuquen,Responsable Inscripto,A,6000000.0,980000.0,45,15.0,activo,0
+30-71099873-2,Construcciones Del Valle S.R.L.,Mendoza,Godoy Cruz,Responsable Inscripto,B,3000000.0,2890000.0,30,8.0,activo,38
+20-31447856-9,Marcelo Paz Ferreteria,Buenos Aires,Bahia Blanca,Monotributo,C,700000.0,0.0,0,5.0,activo,0
+30-70551239-2,Agro Servicios Pampa S.A.,La Pampa,Santa Rosa,Responsable Inscripto,B,3500000.0,640000.0,30,8.0,activo,0
+30-71788450-3,Industrias Norte Grande S.R.L.,Salta,Salta,Responsable Inscripto,B,2800000.0,1150000.0,30,8.0,suspendido,95
+33-71203344-9,Cooperativa de Trabajo Sur Ltda.,Rio Negro,General Roca,Responsable Inscripto,C,1200000.0,420000.0,15,5.0,activo,0
+30-71340098-6,Distribuidora Cuyo Insumos S.A.,San Juan,San Juan,Responsable Inscripto,A,5500000.0,3200000.0,45,12.0,activo,0
+30-70223318-2,Mantenimiento Integral Litoral S.R.L.,Chaco,Resistencia,Responsable Inscripto,C,1000000.0,180000.0,15,5.0,activo,0

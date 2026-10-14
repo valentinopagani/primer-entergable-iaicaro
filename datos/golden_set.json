@@ -1,0 +1,267 @@
+{
+  "version": "1.0",
+  "generado": "2026-09-24",
+  "descripcion": "Etiquetas de referencia para evaluar el sistema. 'intencion' y 'ruta' son las metricas duras; 'items' evalua la extraccion; 'debe_contener' es un chequeo laxo de la respuesta RAG.",
+  "casos": [
+    {
+      "id": "MSG-001",
+      "intencion": "consulta",
+      "ruta": "responder_consulta",
+      "documento": "condiciones_comerciales_2026.pdf",
+      "debe_contener": [
+        "5%",
+        "1.500.000"
+      ]
+    },
+    {
+      "id": "MSG-002",
+      "intencion": "consulta",
+      "ruta": "responder_consulta",
+      "documento": "logistica_fletes_2026.pdf",
+      "debe_contener": [
+        "175.000",
+        "8"
+      ]
+    },
+    {
+      "id": "MSG-003",
+      "intencion": "consulta",
+      "ruta": "responder_consulta",
+      "documento": "politica_devoluciones_2026.pdf",
+      "debe_contener": [
+        "no"
+      ]
+    },
+    {
+      "id": "MSG-004",
+      "intencion": "consulta",
+      "ruta": "responder_consulta",
+      "documento": "fichas_tecnicas_2026.pdf",
+      "debe_contener": [
+        "HE-4335"
+      ]
+    },
+    {
+      "id": "MSG-005",
+      "intencion": "consulta",
+      "ruta": "responder_consulta",
+      "documento": "condiciones_comerciales_2026.pdf",
+      "debe_contener": [
+        "5"
+      ]
+    },
+    {
+      "id": "MSG-006",
+      "intencion": "consulta",
+      "ruta": "responder_consulta",
+      "documento": "politica_devoluciones_2026.pdf",
+      "debe_contener": [
+        "12 meses"
+      ]
+    },
+    {
+      "id": "MSG-007",
+      "intencion": "consulta",
+      "ruta": "responder_consulta",
+      "documento": "logistica_fletes_2026.pdf",
+      "debe_contener": [
+        "24"
+      ]
+    },
+    {
+      "id": "MSG-008",
+      "intencion": "consulta",
+      "ruta": "responder_consulta",
+      "documento": "condiciones_comerciales_2026.pdf",
+      "debe_contener": [
+        "no"
+      ]
+    },
+    {
+      "id": "MSG-009",
+      "intencion": "pedido",
+      "ruta": "confirmar_pedido",
+      "items": [
+        {
+          "sku": "AB-1020",
+          "cantidad": 200
+        },
+        {
+          "sku": "AB-1120",
+          "cantidad": 50
+        },
+        {
+          "sku": "ME-6030",
+          "cantidad": 10
+        }
+      ],
+      "motivo": "dentro del limite de credito y sin descuento extraordinario"
+    },
+    {
+      "id": "MSG-010",
+      "intencion": "pedido",
+      "ruta": "confirmar_pedido",
+      "items": [
+        {
+          "sku": "HE-4110",
+          "cantidad": 4
+        },
+        {
+          "sku": "HE-4500",
+          "cantidad": 2
+        },
+        {
+          "sku": "SE-5010",
+          "cantidad": 30
+        },
+        {
+          "sku": "SE-5055",
+          "cantidad": 100
+        }
+      ],
+      "motivo": "cliente A al dia, saldo + pedido por debajo del limite"
+    },
+    {
+      "id": "MSG-011",
+      "intencion": "pedido",
+      "ruta": "confirmar_pedido",
+      "items": [
+        {
+          "sku": "SE-5025",
+          "cantidad": 20
+        },
+        {
+          "sku": "ME-6030",
+          "cantidad": 15
+        }
+      ],
+      "motivo": "monotributista con pago anticipado; no consume credito"
+    },
+    {
+      "id": "MSG-012",
+      "intencion": "pedido",
+      "ruta": "confirmar_pedido",
+      "items": [
+        {
+          "sku": "LU-8010",
+          "cantidad": 6
+        },
+        {
+          "sku": "LU-8090",
+          "cantidad": 10
+        },
+        {
+          "sku": "FI-7075",
+          "cantidad": 2
+        }
+      ],
+      "motivo": "cliente B al dia, monto chico"
+    },
+    {
+      "id": "MSG-013",
+      "intencion": "pedido",
+      "ruta": "aprobacion_humana",
+      "items": [
+        {
+          "sku": "HE-4180",
+          "cantidad": 3
+        },
+        {
+          "sku": "NE-9010",
+          "cantidad": 1
+        },
+        {
+          "sku": "NE-9055",
+          "cantidad": 4
+        }
+      ],
+      "motivo": "saldo 7.450.000 + pedido supera el limite de credito de 9.000.000"
+    },
+    {
+      "id": "MSG-014",
+      "intencion": "pedido",
+      "ruta": "aprobacion_humana",
+      "items": [
+        {
+          "sku": "SU-3041",
+          "cantidad": 2
+        },
+        {
+          "sku": "SU-3150",
+          "cantidad": 20
+        }
+      ],
+      "motivo": "saldo 2.410.000 sobre limite 2.500.000: cualquier pedido lo supera"
+    },
+    {
+      "id": "MSG-015",
+      "intencion": "pedido",
+      "ruta": "aprobacion_humana",
+      "items": [
+        {
+          "sku": "ME-6080",
+          "cantidad": 5
+        },
+        {
+          "sku": "HE-4410",
+          "cantidad": 8
+        }
+      ],
+      "motivo": "cliente con 38 dias de mora: entre 30 y 60 exige autorizacion (art. 7)"
+    },
+    {
+      "id": "MSG-016",
+      "intencion": "pedido",
+      "ruta": "aprobacion_humana",
+      "items": [
+        {
+          "sku": "AB-1035",
+          "cantidad": 500
+        },
+        {
+          "sku": "AB-1120",
+          "cantidad": 300
+        },
+        {
+          "sku": "HE-4110",
+          "cantidad": 60
+        }
+      ],
+      "motivo": "triple alerta: pide 25% de descuento (tope 20%, art. 5), no hay stock de HE-4110 (piden 60, hay 52) y el pedido supera el limite de credito"
+    },
+    {
+      "id": "MSG-017",
+      "intencion": "pedido",
+      "ruta": "rechazar_pedido",
+      "items": [
+        {
+          "sku": "SE-5090",
+          "cantidad": 10
+        },
+        {
+          "sku": "SU-3200",
+          "cantidad": 20
+        }
+      ],
+      "motivo": "cliente suspendido con 95 dias de mora: no se toma pedido en cuenta corriente (art. 7)"
+    },
+    {
+      "id": "MSG-018",
+      "intencion": "derivar",
+      "ruta": "derivar_humano",
+      "motivo": "reclamo por faltante con remito: no es consulta de politica ni pedido nuevo"
+    },
+    {
+      "id": "MSG-019",
+      "intencion": "derivar",
+      "ruta": "derivar_humano",
+      "motivo": "oferta de un proveedor, no es un cliente comprando"
+    },
+    {
+      "id": "MSG-020",
+      "intencion": "derivar",
+      "ruta": "derivar_humano",
+      "motivo": "pide asesoramiento tecnico sin producto definido; no hay SKU que extraer"
+    }
+  ]
+}

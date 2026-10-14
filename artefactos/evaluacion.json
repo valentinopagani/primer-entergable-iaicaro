@@ -1,0 +1,202 @@
+[
+  {
+    "id": "MSG-001",
+    "intencion": "consulta",
+    "ruta_esperada": "responder_consulta",
+    "ruta_obtenida": "responder_consulta",
+    "rama_ok": true,
+    "datos_ok": true,
+    "faltantes": [],
+    "respuesta": "**Descuento por volumen**  \n- Para un pedido neto de **$1.200.000** corresponde un **5 % de descuento por volumen** (art. 5, condiciones comerciales, p. 1).\n\n**Flete**  \n- El flete **no se bonifica** porque el monto neto está por debajo del umbral de **$1.500.000** (art. 3, logistica fletes, p. 1).  \n- Por lo tanto, el cliente debe pagar el flete.  \n  - En las zonas 1‑3 (Corrientes, Formosa, Misiones) el flete es **$130.000** por envío, con entrega en 6‑8 días hábiles.  \n  - En la zona 5 (Patagonia: Neuquén, Río Negro, Chubut, Santa Cruz, Tierra del Fuego) el flete es **$175.000** por envío, con entrega en 8‑12 días hábiles.\n\n**Fuentes**  \n- Descuento por volumen: *condiciones_comerciales_2026.pdf*, p. 1.  \n- Flete y bonificación: *logistica_fletes_2026.pdf*, p. 1."
+  },
+  {
+    "id": "MSG-002",
+    "intencion": "consulta",
+    "ruta_esperada": "responder_consulta",
+    "ruta_obtenida": "responder_consulta",
+    "rama_ok": true,
+    "datos_ok": true,
+    "faltantes": [],
+    "respuesta": "El envío a Neuquén capital corresponde a la **Zona 5 – Patagonia**.  \n- **Costo del flete:** **$175.000** por envío.  \n- **Plazo de entrega:** **8 a 12 días hábiles**.  \n\n*(Información tomada de logistica_fletes_2026.pdf p.1, fragmento 6).*"
+  },
+  {
+    "id": "MSG-003",
+    "intencion": "consulta",
+    "ruta_esperada": "responder_consulta",
+    "ruta_obtenida": "responder_consulta",
+    "rama_ok": true,
+    "datos_ok": true,
+    "faltantes": [],
+    "respuesta": "No, los zapatos de seguridad no se pueden devolver por razones de higiene.  \n(Política de devoluciones, fragmento 3, p. 1)"
+  },
+  {
+    "id": "MSG-004",
+    "intencion": "consulta",
+    "ruta_esperada": "responder_consulta",
+    "ruta_obtenida": "responder_consulta",
+    "rama_ok": true,
+    "datos_ok": true,
+    "faltantes": [],
+    "respuesta": "El atornillador de impacto **HE‑4330** **no** viene con batería incluida; se vende **sin batería ni cargador**.  \nLa batería compatible es el **SKU HE‑4335**.  \n\n*(Información tomada del fragmento 1 de fichas_tecnicas_2026.pdf p.1)*"
+  },
+  {
+    "id": "MSG-005",
+    "intencion": "consulta",
+    "ruta_esperada": "responder_consulta",
+    "ruta_obtenida": "responder_consulta",
+    "rama_ok": true,
+    "datos_ok": true,
+    "faltantes": [],
+    "respuesta": "Un presupuesto emitido por Mesa de Pedidos mantiene el precio por **5 días hábiles** y luego caduca automáticamente.  \n*(condiciones_comerciales_2026.pdf p.1)*"
+  },
+  {
+    "id": "MSG-006",
+    "intencion": "consulta",
+    "ruta_esperada": "responder_consulta",
+    "ruta_obtenida": "responder_consulta",
+    "rama_ok": true,
+    "datos_ok": true,
+    "faltantes": [],
+    "respuesta": "La garantía de las amoladoras (herramientas eléctricas) cubre defectos de fabricación por **12 meses contados desde la fecha de factura**.  \nEl trámite se realiza a través del **servicio oficial de la marca**; Ferretería Industrial Andina actúa como gestor de la garantía.  \n\nLa garantía no cubre desgaste normal, uso indebido, sobrecarga, falta de mantenimiento ni daños causados por terceros no autorizados.  \n\n*(Información extraída del fragmento 2 de “política_devoluciones_2026.pdf” p. 1.)*"
+  },
+  {
+    "id": "MSG-007",
+    "intencion": "consulta",
+    "ruta_esperada": "responder_consulta",
+    "ruta_obtenida": "responder_consulta",
+    "rama_ok": true,
+    "datos_ok": true,
+    "faltantes": [],
+    "respuesta": "No hay límite para aerosoles en Santa Rosa.  \nEl documento indica que **máximo 24 unidades por envío** se aplica **solo a zonas 4 y 5** (con un recargo del 15 % sobre el flete).  \nSanta Rosa se encuentra en la **zona 2** (Interior de Córdoba, Santa Fe y Entre Ríos), por lo que la restricción de 24 unidades no se aplica.  \n\nFuentes: fragmento 1 (línea sobre aerosoles y quí­micos inflamables) y fragmento 2 (definición de zona 2)."
+  },
+  {
+    "id": "MSG-008",
+    "intencion": "consulta",
+    "ruta_esperada": "responder_consulta",
+    "ruta_obtenida": "responder_consulta",
+    "rama_ok": true,
+    "datos_ok": true,
+    "faltantes": [],
+    "respuesta": "No, la percepción de Ingresos Brutos no se aplica a clientes con domicilio fiscal en Córdoba Capital.  \nSegún el Art. 8 de las Condiciones Comerciales 2026: “Los clientes inscriptos en Córdoba no sufren percepción de Ingresos Brutos.” (fragmento 1, p. 2)."
+  },
+  {
+    "id": "MSG-009",
+    "intencion": "pedido",
+    "ruta_esperada": "confirmar_pedido",
+    "ruta_obtenida": "confirmar_pedido",
+    "rama_ok": true,
+    "datos_ok": null,
+    "faltantes": [],
+    "respuesta": "Pedido confirmado para Ferreteria El Tornillo Feliz S.R.L.. Neto $1,118,000.00 + IVA = total $1,352,780.00."
+  },
+  {
+    "id": "MSG-010",
+    "intencion": "pedido",
+    "ruta_esperada": "confirmar_pedido",
+    "ruta_obtenida": "confirmar_pedido",
+    "rama_ok": true,
+    "datos_ok": null,
+    "faltantes": [],
+    "respuesta": "Pedido confirmado para Talleres Patagonia S.A.. Neto $4,073,000.00 + IVA = total $4,928,330.00."
+  },
+  {
+    "id": "MSG-011",
+    "intencion": "pedido",
+    "ruta_esperada": "confirmar_pedido",
+    "ruta_obtenida": "confirmar_pedido",
+    "rama_ok": true,
+    "datos_ok": null,
+    "faltantes": [],
+    "respuesta": "Pedido confirmado para Marcelo Paz Ferreteria. Neto $340,000.00 + IVA = total $411,400.00."
+  },
+  {
+    "id": "MSG-012",
+    "intencion": "pedido",
+    "ruta_esperada": "confirmar_pedido",
+    "ruta_obtenida": "confirmar_pedido",
+    "rama_ok": true,
+    "datos_ok": null,
+    "faltantes": [],
+    "respuesta": "Pedido confirmado para Agro Servicios Pampa S.A.. Neto $1,213,000.00 + IVA = total $1,467,730.00."
+  },
+  {
+    "id": "MSG-013",
+    "intencion": "pedido",
+    "ruta_esperada": "aprobacion_humana",
+    "ruta_obtenida": "aprobacion_humana",
+    "rama_ok": true,
+    "datos_ok": null,
+    "faltantes": [],
+    "respuesta": ""
+  },
+  {
+    "id": "MSG-014",
+    "intencion": "pedido",
+    "ruta_esperada": "aprobacion_humana",
+    "ruta_obtenida": "aprobacion_humana",
+    "rama_ok": true,
+    "datos_ok": null,
+    "faltantes": [],
+    "respuesta": ""
+  },
+  {
+    "id": "MSG-015",
+    "intencion": "pedido",
+    "ruta_esperada": "aprobacion_humana",
+    "ruta_obtenida": "aprobacion_humana",
+    "rama_ok": true,
+    "datos_ok": null,
+    "faltantes": [],
+    "respuesta": ""
+  },
+  {
+    "id": "MSG-016",
+    "intencion": "pedido",
+    "ruta_esperada": "aprobacion_humana",
+    "ruta_obtenida": "aprobacion_humana",
+    "rama_ok": true,
+    "datos_ok": null,
+    "faltantes": [],
+    "respuesta": ""
+  },
+  {
+    "id": "MSG-017",
+    "intencion": "pedido",
+    "ruta_esperada": "rechazar_pedido",
+    "ruta_obtenida": "rechazar_pedido",
+    "rama_ok": true,
+    "datos_ok": null,
+    "faltantes": [],
+    "respuesta": "Pedido rechazado: Supera el límite de crédito: proyectado $3,588,000 vs límite $2,800,000; Cliente suspendido por mora (> 60 días): no se toma a cuenta corriente."
+  },
+  {
+    "id": "MSG-018",
+    "intencion": "derivar",
+    "ruta_esperada": "derivar_humano",
+    "ruta_obtenida": "derivar_humano",
+    "rama_ok": true,
+    "datos_ok": null,
+    "faltantes": [],
+    "respuesta": "Derivado a una persona: es un reclamo o un pedido de asesoramiento que no es una consulta de política ni un pedido nuevo."
+  },
+  {
+    "id": "MSG-019",
+    "intencion": "derivar",
+    "ruta_esperada": "derivar_humano",
+    "ruta_obtenida": "derivar_humano",
+    "rama_ok": true,
+    "datos_ok": null,
+    "faltantes": [],
+    "respuesta": "Derivado a una persona: es un reclamo o un pedido de asesoramiento que no es una consulta de política ni un pedido nuevo."
+  },
+  {
+    "id": "MSG-020",
+    "intencion": "derivar",
+    "ruta_esperada": "derivar_humano",
+    "ruta_obtenida": "derivar_humano",
+    "rama_ok": true,
+    "datos_ok": null,
+    "faltantes": [],
+    "respuesta": "Derivado a una persona: es un reclamo o un pedido de asesoramiento que no es una consulta de política ni un pedido nuevo."
+  }
+]
