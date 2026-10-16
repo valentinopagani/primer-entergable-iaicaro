@@ -1,0 +1,51 @@
+{
+  "numero": "PED-2026-2784",
+  "mensaje_id": "MSG-011",
+  "cuit": "20-31447856-9",
+  "razon_social": "Marcelo Paz Ferreteria",
+  "estado": "confirmado",
+  "renglones": [
+    {
+      "sku": "SE-5025",
+      "nombre": "Antiparra policarbonato incolora",
+      "marca": "Libus",
+      "rubro": "Seguridad",
+      "cantidad": 20,
+      "precio_unitario": 7400.0,
+      "subtotal_lista": 148000.0,
+      "descuento_pct": 5.0,
+      "subtotal_neto": 140600.0,
+      "subtotal": 140600.0,
+      "alicuota_iva": 21.0,
+      "stock_disponible": 1620,
+      "stock": 1620,
+      "hay_stock": true,
+      "deposito": "Cordoba",
+      "nota": ""
+    },
+    {
+      "sku": "ME-6030",
+      "nombre": "Cinta metrica 5 m x 25 mm",
+      "marca": "Stanley",
+      "rubro": "Medicion",
+      "cantidad": 15,
+      "precio_unitario": 12800.0,
+      "subtotal_lista": 192000.0,
+      "descuento_pct": 5.0,
+      "subtotal_neto": 182400.0,
+      "subtotal": 182400.0,
+      "alicuota_iva": 21.0,
+      "stock_disponible": 1350,
+      "stock": 1350,
+      "hay_stock": true,
+      "deposito": "Cordoba",
+      "nota": ""
+    }
+  ],
+  "neto": 313310.0,
+  "descuento_aplicado_pct": 5.0,
+  "flete": 95000.0,
+  "total_con_iva": 494055.1,
+  "autorizado_por": null,
+  "motivo": "Dentro del credito, con stock y con el descuento dentro del tope"
+}

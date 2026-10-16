@@ -1,0 +1,9 @@
+{
+  "numero": "TCK-2026-9065",
+  "mensaje_id": "MSG-020",
+  "area": "Asesoría técnica",
+  "motivo": "El usuario solicita asesoramiento para elegir una herramienta sin especificar producto ni cantidad, pide que lo llamen para orientarlo, lo que corresponde a la categoría 'derivar'.",
+  "origen": "clasificacion",
+  "resumen": "Necesito herramienta para cortar chapa. No se bien que me conviene, podrian llamarme y asesorarme? Es para un trabajo grande y no quiero mandarme una macana.",
+  "cliente": "Roberto Gimenez Herramientas"
+}

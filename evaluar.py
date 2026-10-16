@@ -25,10 +25,6 @@ BANDEJA = BASE / "datos" / "bandeja.jsonl"
 GOLDEN = BASE / "datos" / "golden_set.json"
 SALIDA = BASE / "artefactos" / "evaluacion.json"
 
-# Pausa entre casos para no saturar el RPM del tier gratuito de Gemini
-# (~2 llamadas LLM por caso; la cuota free es de un dígito por minuto).
-PAUSA_ENTRE_CASOS = 10
-
 
 def cargar_jsonl(ruta: Path) -> list[dict]:
     with open(ruta, encoding="utf-8") as f:
@@ -49,11 +45,19 @@ def ruta_obtenida(result: dict) -> str:
     """Traduce el estado final del grafo a la ruta (nodo hoja) donde terminó."""
     if "__interrupt__" in result:
         return "aprobacion_humana"
-
+    if result.get("ruta") in ("responder_consulta", "confirmar_pedido",
+                              "rechazar_pedido", "derivar_humano"):
+        return result["ruta"]
+    v = result.get("validacion") or {}
+    if v.get("ruta"):
+        return v["ruta"]
+    inten = result.get("intencion")
     clasificacion = result.get("clasificacion")
-    if clasificacion == "consulta":
+    if isinstance(clasificacion, dict):
+        clasificacion = clasificacion.get("intencion") or clasificacion.get("tipo")
+    if (inten or clasificacion) == "consulta":
         return "responder_consulta"
-    if clasificacion == "derivar":
+    if (inten or clasificacion) == "derivar":
         return "derivar_humano"
 
     return {
@@ -69,12 +73,14 @@ def evaluar_caso(caso: dict, msg: dict) -> dict:
     grafo = construir_grafo(checkpointer=InMemorySaver())
     config = {"configurable": {"thread_id": f"eval-{caso['id']}"}}
     try:
-        out = grafo.invoke({"mensaje": msg["texto"], "cuit": msg["cuit"]}, config=config)
+        out = grafo.invoke({"mensaje": msg["texto"], "mensaje_id": caso["id"], "cuit": msg["cuit"]}, config=config)
         obtenida = ruta_obtenida(out)
         respuesta = out.get("respuesta", "")
     except Exception as e:  # un caso roto no debe tumbar la evaluación
-        obtenida = f"ERROR: {type(e).__name__}"
+        status = getattr(e, "status_code", "")
+        obtenida = f"ERROR: {type(e).__name__} {status}".strip()
         respuesta = ""
+        print(f"    !! {caso['id']}: {obtenida} — {str(e)[:300]}", flush=True)
 
     rama_ok = obtenida == caso["ruta"]
 
@@ -102,14 +108,17 @@ def evaluar_caso(caso: dict, msg: dict) -> dict:
 
 
 def main() -> None:
+    print("Cargando grafo y datos...", flush=True)
+    t_ini = time.time()
     bandeja = {m["id"]: m for m in cargar_jsonl(BANDEJA)}
     casos = json.loads(GOLDEN.read_text(encoding="utf-8"))["casos"]
+    print(f"Listo en {time.time() - t_ini:.0f}s. Evaluando {len(casos)} casos...", flush=True)
     filas = []
     for i, caso in enumerate(casos):
-        if i > 0:
-            time.sleep(PAUSA_ENTRE_CASOS)
+        t_caso = time.time()
         print(f"... {caso['id']} ({i + 1}/{len(casos)})", flush=True)
         filas.append(evaluar_caso(caso, bandeja[caso["id"]]))
+        print(f"    -> {filas[-1]['ruta_obtenida']} en {time.time() - t_caso:.0f}s", flush=True)
 
     print("=" * 78)
     print("DETALLE POR CASO")

@@ -1,0 +1,9 @@
+{
+  "numero": "TCK-2026-1520",
+  "mensaje_id": "MSG-019",
+  "area": "Relaciones con proveedores / Compras",
+  "motivo": "El usuario quiere ser proveedor y solicita información de contacto, lo que corresponde a una derivación (asesoramiento sin producto definido, relacionado con proveedores).",
+  "origen": "clasificacion",
+  "resumen": "Hola, quiero ser proveedor de ustedes, fabricamos carros porta herramientas. Con quien hablo?",
+  "cliente": "Mantenimiento Integral Litoral S.R.L."
+}

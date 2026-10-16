@@ -13,8 +13,10 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 
-from mesa_pedidos.indexado import cargar_indice
 from mesa_pedidos.llm import crear_llm
+from mesa_pedidos import reglas
+# cargar_indice se importa DENTRO de cada funcion (indexado.py tarda ~1 min
+# en importar por torch/transformers y dejaba la consola muda).
 
 SIN_CONTEXTO = "No tengo esa información."
 
@@ -23,8 +25,12 @@ prompt = ChatPromptTemplate.from_template(
 El contexto viene en fragmentos numerados: revisá CADA uno antes de concluir que un dato no está.
 Si algún fragmento menciona el tema, el producto o la zona de la pregunta, respondé con ese dato
 (regla, límite, monto, plazo) copiando sus números exactos, aunque sea una regla general.
+Si la regla menciona un alcance (zonas, productos, casos), incluí el dato igual y aclará a quién
+alcanza según el fragmento; no respondas "No tengo esa información" cuando el tema sí aparece.
 Incluí siempre en la respuesta los montos, umbrales y plazos exactos que figuran en el contexto
 (ej: si la bonificación aplica desde $1.500.000, escribí esa cifra).
+Cuentas hechas por el sistema (usarlas tal cual, no recalcular):
+{calculos}
 Sólo si NINGÚN fragmento trata el tema, respondé exactamente: "No tengo esa información.".
 Cuando respondas con datos del contexto, al final aclará de qué documento y en qué página los obtuviste.
 No inventes. No mezcles con conocimiento previo.
@@ -38,11 +44,13 @@ Respuesta:"""
 )
 
 llm = crear_llm()
-K = 8
+K = 4
 
 
 def _denso(pregunta: str, k: int = K) -> list:
     """Búsqueda densa (MMR con foco en similitud)."""
+    from mesa_pedidos.indexado import cargar_indice
+
     return cargar_indice().as_retriever(
         search_type="mmr",
         search_kwargs={"k": k, "fetch_k": 30, "lambda_mult": 0.8},
@@ -53,6 +61,7 @@ def _denso(pregunta: str, k: int = K) -> list:
 def _bm25(k: int = K):
     """Retriever BM25 sobre los mismos chunks del índice (match literal)."""
     from langchain_community.retrievers import BM25Retriever
+    from mesa_pedidos.indexado import cargar_indice
 
     chunks = list(cargar_indice().docstore._dict.values())
     retriever = BM25Retriever.from_documents(chunks)
@@ -92,20 +101,26 @@ def format_docs(docs) -> str:
     )
 
 
-def responder(pregunta: str) -> dict:
+def responder(pregunta: str, cliente: dict | None = None) -> dict:
     """Contesta una pregunta contra los PDF y devuelve respuesta + fuentes."""
     docs = recuperar(pregunta)
     if not docs:
         return {"respuesta": SIN_CONTEXTO, "fuentes": []}
 
     contexto = format_docs(docs)
+    calculos = reglas.calculos_para_consulta(pregunta, cliente)
     cadena = (
-        {"context": lambda _: contexto, "question": RunnablePassthrough()}
+        {"context": lambda _: contexto, "question": RunnablePassthrough(),
+         "calculos": lambda _: calculos}
         | prompt
         | llm
         | StrOutputParser()
     )
     respuesta = cadena.invoke(pregunta).strip()
+    if not respuesta:
+        # El endpoint gratuito a veces devuelve completion vacia: un reintento
+        # con el mismo contexto antes de entregar (no es ajuste al golden).
+        respuesta = cadena.invoke(pregunta).strip()
     if respuesta.lower().startswith("no tengo"):
         respuesta = SIN_CONTEXTO
 

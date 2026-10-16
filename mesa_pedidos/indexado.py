@@ -15,11 +15,9 @@ import warnings
 from functools import lru_cache
 from pathlib import Path
 
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores import FAISS
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-
+# NOTA: los imports pesados (langchain_community, torch, transformers) estan
+# DENTRO de las funciones a proposito: importarlos al inicio dejaba ~1 min
+# sin ningun output y parecia que el programa estaba clavado.
 warnings.filterwarnings("ignore", message=".*HuggingFaceEmbeddings.*")
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # .../Mesa de Pedidos
@@ -31,8 +29,10 @@ CHUNK_SIZE = 1000
 CHUNK_OVERLAP = 150
 
 
-def crear_embeddings() -> HuggingFaceEmbeddings:
+def crear_embeddings():
     """Devuelve el modelo de embeddings denso local (sin API ni cuota)."""
+    from langchain_community.embeddings import HuggingFaceEmbeddings
+
     return HuggingFaceEmbeddings(model_name=EMBEDDINGS_MODEL)
 
 
@@ -42,6 +42,8 @@ def cargar_documentos() -> list:
     PyPDFLoader numerá las páginas desde 0; acá se deja de 1 a N para que
     la cita que ve una persona coincida con lo que muestra el PDF.
     """
+    from langchain_community.document_loaders import PyPDFLoader
+
     pdfs = sorted(DIR_PDF.glob("*.pdf"))
     if not pdfs:
         raise FileNotFoundError(f"No se encontraron PDF en {DIR_PDF}")
@@ -56,8 +58,11 @@ def cargar_documentos() -> list:
     return documentos
 
 
-def construir_indice() -> FAISS:
+def construir_indice():
     """Parte los PDF en chunks, genera los embeddings y persiste el índice."""
+    from langchain_community.vectorstores import FAISS
+    from langchain_text_splitters import RecursiveCharacterTextSplitter
+
     documentos = cargar_documentos()
 
     splitter = RecursiveCharacterTextSplitter(
@@ -84,6 +89,8 @@ def cargar_indice() -> FAISS:
     Cacheada con lru_cache: el modelo de embeddings y el vectorstore se cargan
     una sola vez por proceso, aunque se consulte muchas veces.
     """
+    from langchain_community.vectorstores import FAISS
+
     if not (VECTORSTORE_PATH / "index.faiss").exists():
         return construir_indice()
 

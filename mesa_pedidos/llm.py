@@ -7,16 +7,16 @@ from langchain_openai import ChatOpenAI
 
 load_dotenv(find_dotenv(usecwd=True))
 
-MODELO = os.getenv("MODELO_LLM", "openai/gpt-oss-20b")
-MAX_TOKENS = 4096
+MODELO = "nvidia/nemotron-3-super-120b-a12b:free"
+
+MAX_TOKENS = "1000"
 
 
 def crear_llm(max_tokens: int = MAX_TOKENS) -> ChatOpenAI:
     """Devuelve un ChatOpenAI contra OpenRouter con temperatura 0.
 
     Sin reintentos internos del cliente (max_retries=0): el reintento lo maneja
-    el RetryPolicy del grafo, para no apilar 2 (cliente) x 3 (grafo) esperas
-    ante un proveedor lento.
+    el RetryPolicy del grafo.
     """
     return ChatOpenAI(
         model=MODELO,

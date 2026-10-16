@@ -68,8 +68,13 @@ def mostrar_payload(payload: dict) -> None:
     )
     print(
         f"Pedido:   neto ${payload['neto']:,.2f} + IVA ${payload['iva']:,.2f} "
-        f"= total ${payload['total']:,.2f} (descuento {payload['descuento_total']:.1f}%)"
+        f"= total ${payload.get('total_con_iva', payload.get('total', 0)):,.2f} "
+        f"(descuento {payload.get('descuento_aplicado_pct', payload.get('descuento_total', 0)):.1f}%)"
     )
+    if payload.get("motivo"):
+        print(f"Motivo:   {payload['motivo']}")
+    if payload.get("texto_original"):
+        print(f"Original: {payload['texto_original'][:160]}")
 
     print("\nAlertas:")
     for alerta in payload["alertas"] or ["(ninguna)"]:
@@ -78,8 +83,9 @@ def mostrar_payload(payload: dict) -> None:
     print("\nRenglones:")
     for r in payload["renglones"]:
         print(
-            f"  {r['sku']:>8}  {r['nombre'][:36]:<36} "
-            f"{r['cantidad']:>8g} x ${r['precio_unitario']:>12,.2f} = ${r['subtotal']:>14,.2f}"
+            f"  {r.get('sku', '?'):>8}  {r.get('nombre', '')[:36]:<36} "
+            f"{r.get('cantidad', 0):>8g} x ${r.get('precio_unitario', 0):>12,.2f} = "
+            f"${r.get('subtotal_neto', r.get('subtotal', 0)):>14,.2f}"
         )
     print("=" * 72)
 
@@ -94,40 +100,80 @@ def main() -> None:
         pass
 
     parser = argparse.ArgumentParser(description="Procesa un mensaje de la bandeja.")
-    parser.add_argument("mensaje_id", help="ID del mensaje, ej: MSG-016")
+    parser.add_argument("mensaje_id", nargs="?", help="ID del mensaje, ej: MSG-016")
     parser.add_argument("--resume", action="store_true", help="Retomar una aprobación pendiente")
     parser.add_argument(
-        "--decision", choices=["aprobar", "rechazar"], default="aprobar",
+        "--decision", choices=["aprobar", "editar", "rechazar"], default="aprobar",
         help="Decisión de Gerencia al retomar (por defecto aprobar)",
     )
     parser.add_argument("--motivo", default="", help="Motivo de la decisión (recomendado al rechazar)")
+    parser.add_argument("--items", default="", help='Editar: JSON {"SKU": nueva_cantidad}')
+    parser.add_argument("--descuento", type=float, default=None, help="Editar: descuento autorizado %")
+    parser.add_argument("--pendientes", action="store_true", help="Lista threads interrumpidos")
+    parser.add_argument("--todos", action="store_true", help="Corre los 20 mensajes")
+    parser.add_argument("--texto", default="", help="Mensaje libre (requiere --cuit)")
+    parser.add_argument("--cuit", default="", help="CUIT para --texto")
     args = parser.parse_args()
 
     grafo, conn = construir_grafo_con_memoria()
     config = {"configurable": {"thread_id": f"msg-{args.mensaje_id}"}}
 
     try:
-        if args.resume:
-            decision = {
-                "aprobado": args.decision == "aprobar",
-                "motivo": args.motivo,
-            }
-            out = grafo.invoke(Command(resume=decision), config=config)
-            print(f"\nRespuesta: {out.get('respuesta')}")
-            print(f"Decisión final: {out.get('decision')} | aprobación={out.get('aprobacion')}")
+        if args.pendientes:
+            from langgraph.checkpoint.sqlite import SqliteSaver as _S
+            print("Threads con estado guardado:")
+            for t in conn.execute(
+                    "SELECT DISTINCT thread_id FROM checkpoints ORDER BY thread_id").fetchall():
+                print(f"  - {t[0]}")
+            return
+        if args.todos:
+            for m in [leer_mensaje(f"MSG-{i:03d}") for i in range(1, 21)]:
+                try:
+                    out = grafo.invoke({"mensaje": m["texto"], "mensaje_id": m["id"], "cuit": m["cuit"]},
+                                       config={"configurable": {"thread_id": f"msg-{m['id']}"}})
+                    estado = "INTERRUMPIDO" if "__interrupt__" in out else out.get("ruta", out.get("decision"))
+                    print(f"{m['id']}: {estado}")
+                except Exception as e:
+                    print(f"{m['id']}: ERROR {e}")
+            return
+        if args.texto:
+            if not args.cuit:
+                raise SystemExit("--texto requiere --cuit")
+            mensaje_id = args.mensaje_id or "manual"
+            estado_inicial = {"mensaje": args.texto, "mensaje_id": mensaje_id, "cuit": args.cuit}
+            thread = f"msg-{mensaje_id}"
+        elif not args.mensaje_id:
+            raise SystemExit("Indica mensaje_id, --todos, --pendientes o --texto")
         else:
             msg = leer_mensaje(args.mensaje_id)
-            estado_inicial = {"mensaje": msg["texto"], "cuit": msg["cuit"]}
+            estado_inicial = {"mensaje": msg["texto"], "mensaje_id": msg["id"], "cuit": msg["cuit"]}
+            thread = f"msg-{args.mensaje_id}"
+        config = {"configurable": {"thread_id": thread}}
+
+        if args.resume:
+            if args.decision == "editar":
+                items_edit = json.loads(args.items or "{}")
+                decision = {"tipo": "editar", "razon": args.motivo,
+                            "items_editados": items_edit,
+                            "descuento_autorizado": args.descuento}
+            else:
+                decision = {"tipo": "aprobar" if args.decision == "aprobar" else "rechazar",
+                            "razon": args.motivo}
+            out = grafo.invoke(Command(resume=decision), config=config)
+            print(f"\nRespuesta: {out.get('respuesta')}")
+            print(f"Decisión final: {out.get('ruta', out.get('decision'))} | humana={out.get('decision_humana', out.get('aprobacion'))}")
+        else:
             out = grafo.invoke(estado_inicial, config=config)
 
             if "__interrupt__" in out:
                 mostrar_payload(out["__interrupt__"][0].value)
                 print("\nEl proceso frenó y el estado quedó guardado en el checkpointer.")
                 print("Para retomar (puede ser otra terminal):")
-                print(f"  python correr.py {args.mensaje_id} --resume --decision aprobar")
-                print(f"  python correr.py {args.mensaje_id} --resume --decision rechazar --motivo \"...\"")
+                print(f"  python correr.py {args.mensaje_id or 'manual'} --resume --decision aprobar")
+                print(f"  python correr.py {args.mensaje_id or 'manual'} --resume --decision rechazar --motivo \"...\"")
+                print(f"  python correr.py {args.mensaje_id or 'manual'} --resume --decision editar --items '{{\"SKU\": 5}}'")
             else:
-                print(f"\nResuelto sin aprobación. Clasificación: {out.get('clasificacion')}")
+                print(f"\nResuelto sin aprobación. Ruta: {out.get('ruta', out.get('decision'))}")
                 print(f"Respuesta: {out.get('respuesta')}")
 
         print("\nLog:")
